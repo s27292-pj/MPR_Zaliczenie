@@ -9,20 +9,18 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
-@RequiredArgsConstructor
 public class S27292BankApplication {
-    public final AccountService accountService;
-
 
     public static void main(String[] args) {
-        ConfigurableApplicationContext context = SpringApplication.run(S27292BankApplication.class, args);
-        S27292BankApplication application = context.getBean(S27292BankApplication.class);
+        ConfigurableApplicationContext context = SpringApplication.run(S27292BankApplication.class);
+
+        AccountService accountService = context.getBean("accountService", AccountService.class);
 
         Client client1 = new Client(1, "12345678901", 1000.0, Currency.PLN, "Jan", "Kowalski");
         Client client2 = new Client(2, "12345678902", 2000.0, Currency.EUR, "Adam", "Nowak");
         Client client3 = new Client(3, "12345678903", 3000.0, Currency.USD, "Daniel", "Bielinski");
-        application.accountService.create(client1);
-        application.accountService.create(client2);
-        application.accountService.create(client3);
+        accountService.create(client1);
+        accountService.create(client2);
+        accountService.create(client3);
     }
 }
